@@ -3,17 +3,22 @@ import java.util.Arrays;
 public class Week15 {
     private Integer task = 0;
     public boolean checkPredecessor(int[] array) {
-        int predecessor = 0;
+        int lessThanPredecessorCount = 0;
         for (int index = 1; index < array.length; index++)
-            if(array[index] > array[index - 1])
-                predecessor++;
-        return predecessor <= 2;
+            if(array[index - 1] < array[index]) lessThanPredecessorCount++;
+        return lessThanPredecessorCount <= 2;
+    }
+    public static boolean checkPredecessor2(int[] array) {
+        int higherThanPredecessorCount = 0;
+        for (int index = 0; index < array.length - 1; index++)
+            if (array[index + 1] > array[0]) higherThanPredecessorCount++;
+        return higherThanPredecessorCount >= 2;
     }
     public double computeNorm(double[] array) {
-        double returnValue = 0;
+        double norm = 0;
         for (double value : array)
-            returnValue += value * value;
-        return returnValue;
+            norm += value * value;
+        return norm;
     }
     public boolean containsMultipleOf(int[] array, int base) {
         for (int value : array)
@@ -42,6 +47,7 @@ public class Week15 {
     }
     public void test() {
         task1();
+        task2();
         task3();
         task4();
         task5();
@@ -77,6 +83,16 @@ public class Week15 {
         printHeading();
         for (double[] doubles : Arrays.asList(new double[]{}, new double[]{1., 1., 1.})) {
             System.out.println(computeNorm(doubles));
+        }
+    }
+    private void task2() {
+        printHeading();
+        for (int[] ints : Arrays.asList(
+                new int[]{},
+                new int[]{1, 3, 1},
+                new int[]{-3, 50, 66, 77, 20},
+                new int[]{-3, -2, -1, 0, -1000})) {
+            System.out.println(checkPredecessor2(ints));
         }
     }
     private void task1() {
